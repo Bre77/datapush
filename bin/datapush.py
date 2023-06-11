@@ -4,7 +4,6 @@ import sys
 import os
 import json
 import requests
-import logging
 
 sys.path.append(os.path.join(os.path.dirname(__file__), "..", 'lib'))
 from splunklib.searchcommands import dispatch, StreamingCommand, Configuration, Option
@@ -26,7 +25,7 @@ class datapushCommand(StreamingCommand):
 
     def stream(self, events):
         data = [{
-            "index": 'test', #event["index"],
+            "index": event["index"],
             "host": event["host"],
             "source": event["source"],
             "sourcetype": event["sourcetype"],
