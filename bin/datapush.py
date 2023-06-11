@@ -33,11 +33,12 @@ class datapushCommand(StreamingCommand):
             "event": event["_raw"]
         } for event in events]
         if data:
-            requests.post(
+            r = requests.post(
                 f"https://{self.host}/services/collector/event",
                 data=json.dumps(data,separators=(",",":")),
                 headers = {"Authorization": f"Splunk {self.token}"}
             )
+            self.logger.info(f"response={r.status_code} code={r.json()['code']} count={len(data)}")
         yield from events
 
 dispatch(datapushCommand, sys.argv, sys.stdin, sys.stdout, __name__)
