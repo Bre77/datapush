@@ -1,0 +1,1 @@
+ln -s %PWD /opt/splunk/etc/apps/datapush
